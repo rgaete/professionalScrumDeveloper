@@ -38,4 +38,11 @@ public class NoteController {
         return "noteList";
     }
 
+    @RequestMapping(value="/noteDelete/{id}", method = RequestMethod.GET)
+    public String noteDelete(Model model, @PathVariable(required = true, name = "id") Long id) {
+        noteService.deleteNotes(id);
+        model.addAttribute("noteList", noteService.findAll());
+        return "noteList";
+    }
+
 }
