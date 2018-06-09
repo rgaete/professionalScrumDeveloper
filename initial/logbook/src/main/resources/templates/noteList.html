@@ -35,8 +35,9 @@
         </thead>
         <tbody>
         <tr th:each="note : ${noteList}">
-            <td th:text="${note.id}">1</td>
-            <td th:text="${note.title}">Test</td>
+            <td th:text="${note.id}"></td>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.summary} + '...'"></td>
             <td th:text="${note.timestamp}"></td>
             <td>
                 <a href="/noteEdit/1" th:href="@{/noteEdit/__${note.id}__}">Edit</a>

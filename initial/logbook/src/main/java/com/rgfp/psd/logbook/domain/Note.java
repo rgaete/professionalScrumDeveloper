@@ -22,4 +22,8 @@ public class Note {
     private String content;
     private LocalDateTime datetime;
 
+    public String getSummary() {
+        return this.content.substring(0, 239);
+    }
+
 }
