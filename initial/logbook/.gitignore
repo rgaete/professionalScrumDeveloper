@@ -26,6 +26,3 @@ nbdist/
 .nb-gradle/
 
 ### Gradle ###
-gradle/
-gradle*
-
