@@ -29,6 +29,7 @@
         <tr>
             <th>Id</th>
             <th>Title</th>
+            <th>Summary</th>
             <th>Creation date</th>
             <th>Actions</th>
         </tr>
@@ -40,6 +41,7 @@
             <td th:text="${note.summary} + '...'"></td>
             <td th:text="${note.timestamp}"></td>
             <td>
+                <a href="/noteView/1" th:href="@{/noteView/__${note.id}__}">View</a>
                 <a href="/noteEdit/1" th:href="@{/noteEdit/__${note.id}__}">Edit</a>
                 <a href="/noteDelete/1" th:href="@{/noteDelete/__${note.id}__}">Delete</a>
             </td>

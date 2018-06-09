@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-
 @Controller
 public class NoteController {
 
@@ -22,6 +20,13 @@ public class NoteController {
     public String noteList(Model model) {
         model.addAttribute("noteList", noteService.findAll());
         return "noteList";
+    }
+
+    // display one note with details
+    @RequestMapping(value={"noteView/{id}"}, method = RequestMethod.GET)
+    public String noteView(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("note", noteService.findOne(id).get());
+        return "noteView";
     }
 
     // displays edit note template
