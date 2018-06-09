@@ -29,6 +29,7 @@
         <tr>
             <th>Id</th>
             <th>Title</th>
+            <th>Creation date</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -36,6 +37,7 @@
         <tr th:each="note : ${noteList}">
             <td th:text="${note.id}">1</td>
             <td th:text="${note.title}">Test</td>
+            <td th:text="${note.timestamp}"></td>
             <td>
                 <a href="/noteEdit/1" th:href="@{/noteEdit/__${note.id}__}">Edit</a>
                 <a href="/noteDelete/1" th:href="@{/noteDelete/__${note.id}__}">Delete</a>
