@@ -15,12 +15,14 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
+    // displays all notes
     @RequestMapping(value="/")
     public String noteList(Model model) {
         model.addAttribute("noteList", noteService.findAll());
         return "noteList";
     }
 
+    // displays edit note template
     @RequestMapping(value={"/noteEdit","/noteEdit/{id}"}, method = RequestMethod.GET)
     public String noteEditForm(Model model, @PathVariable(required = false, name = "id") Long id) {
         if (null != id) {
@@ -31,6 +33,7 @@ public class NoteController {
         return "noteEdit";
     }
 
+    // creates a new note
     @RequestMapping(value="/noteEdit", method = RequestMethod.POST)
     public String noteEdit(Model model, Note note) {
         noteService.saveNote(note);
@@ -38,6 +41,7 @@ public class NoteController {
         return "noteList";
     }
 
+    // deletes a note
     @RequestMapping(value="/noteDelete/{id}", method = RequestMethod.GET)
     public String noteDelete(Model model, @PathVariable(required = true, name = "id") Long id) {
         noteService.deleteNote(id);
