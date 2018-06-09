@@ -1,9 +1,13 @@
 package com.rgfp.psd.logbook.service;
 
 import com.rgfp.psd.logbook.domain.Note;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.naming.Name;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,10 +15,22 @@ import java.util.Optional;
 public class NoteService {
 
     @Autowired
+    @Setter
     private NoteRepository noteRepository;
 
+    private List<Note> allNotes;
+
+    @PostConstruct
+    public void syncAllNotes() {
+        this.allNotes = this.findAll();
+    }
+
+
     public List<Note> findAll() {
-        return (List<Note>) noteRepository.findAll();
+        List<Note> noteList = (List<Note>) noteRepository.findAll();
+        this.allNotes = noteList;
+        return noteList;
+
     }
 
     public Optional<Note> findOne(Long id) {
@@ -23,9 +39,16 @@ public class NoteService {
 
     public void saveNote(Note note) {
         noteRepository.save(note);
+        this.syncAllNotes();
+
     }
 
     public void deleteNote(Long id) {
         noteRepository.deleteById(id);
+        this.syncAllNotes();
+    }
+
+    List<Note> getAllNotes() {
+        return allNotes;
     }
 }
