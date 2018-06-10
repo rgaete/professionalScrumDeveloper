@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -57,7 +58,7 @@ public class NoteServiceTest {
         noteService.setNoteRepository(noteRepositoryMock);
     }
 
-    @Test
+   @Test
     public void shouldSyncAllNotesWhenCallingFindAll() {
         // arrange
         // act
@@ -79,6 +80,27 @@ public class NoteServiceTest {
 
         // assert
         assertEquals(4, noteService.getAllNotes().size());
+
+        // tear down
+        notes.remove(note);
+    }
+
+    @Test
+    public void itShouldAutomaticallyAddATimestampWhenSavingANote() {
+        // arrange
+        Note note = new Note();
+        note.setTitle("New Note Title");
+        note.setContent("new note content");
+        notes.add(note);
+
+        // act
+        noteService.saveNote(note);
+
+        // assert
+        int indexOf = noteService.getAllNotes().indexOf(note);
+        Note savedNote = noteService.getAllNotes().get(indexOf);
+
+        assertNotNull(savedNote.getTimestamp());
 
         // tear down
         notes.remove(note);
@@ -125,7 +147,6 @@ public class NoteServiceTest {
 
     @Test
     public void filterShouldReturnNotesOnlyWithTheSpecifiedWord() {
-
         noteService.syncAllNotes();
 
         List<Note> notes = noteService.findAllBy("spring");
@@ -133,7 +154,6 @@ public class NoteServiceTest {
         assertTrue(notes.contains(n1));
         assertTrue(notes.contains(n2));
         assertFalse(notes.contains(n3));
-
     }
 
 }
