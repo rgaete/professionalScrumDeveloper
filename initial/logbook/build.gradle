@@ -41,7 +41,7 @@ jacocoTestReport {
 	reports {
 		html.destination "$buildDir/reports/jacoco/html"
 	}
-	executionData = files("$buildDir/jacoco/unitTest.exec")
+	executionData = files("$buildDir/jacoco/test.exec")
 }
 
 sonarqube {
