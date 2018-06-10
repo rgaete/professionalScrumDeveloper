@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,7 @@ public class NoteService {
     }
 
     public void saveNote(Note note) {
+        note.setTimestamp(LocalDateTime.now());
         noteRepository.save(note);
         this.syncAllNotes();
     }
