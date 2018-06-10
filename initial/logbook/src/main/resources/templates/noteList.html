@@ -50,7 +50,7 @@
     </table>
 
     <div id="repeated-words">
-        - <span th:each="word: ${repeatedWords}"><span th:text="${word}" /> - </span>
+        - <span th:each="word: ${repeatedWords}"><a th:href="'/notes?filter=' + ${word}" th:text="${word}" /> - </span>
     </div>
 
 </div>

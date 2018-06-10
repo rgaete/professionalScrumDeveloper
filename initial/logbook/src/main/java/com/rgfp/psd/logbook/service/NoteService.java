@@ -27,21 +27,6 @@ public class NoteService {
         this.updateDictionary();
     }
 
-    private void updateDictionary() {
-        dictionary = new HashMap<>();
-        String unwantedCharacters = "[,|.|:|?|!]";
-
-        for(Note note : allNotes) {
-            for (String word: note.getContent().toLowerCase().replaceAll(unwantedCharacters, "").split(" ")) {
-                if (dictionary.containsKey(word)) {
-                    dictionary.replace(word, dictionary.get(word) + 1);
-                } else {
-                    dictionary.put(word, 1);
-                }
-            }
-        }
-    }
-
     public List<Note> findAll() {
         List<Note> noteList = (List<Note>) noteRepository.findAll();
         this.allNotes = noteList;
@@ -63,10 +48,6 @@ public class NoteService {
         this.syncAllNotes();
     }
 
-    List<Note> getAllNotes() {
-        return allNotes;
-    }
-
     public List<String> getRepeatedWords(Integer repetitionFactor) {
 
         ArrayList<String> repeatedWords = new ArrayList<>();
@@ -80,7 +61,42 @@ public class NoteService {
 
     }
 
+    public List<Note> findAllBy(String filter) {
+
+        List<Note> notes = new ArrayList<>();
+
+        for (Note note: this.allNotes) {
+            if (note.getContent().toLowerCase().contains(filter.toLowerCase())) {
+                notes.add(note);
+            }
+
+        }
+
+        return notes;
+
+    }
+
     public List<String> getRepeatedWords() {
         return this.getRepeatedWords(2);
     }
+
+    private void updateDictionary() {
+        dictionary = new HashMap<>();
+        String unwantedCharacters = "[,|.|:|?|!]";
+
+        for(Note note : allNotes) {
+            for (String word: note.getContent().toLowerCase().replaceAll(unwantedCharacters, "").split(" ")) {
+                if (dictionary.containsKey(word)) {
+                    dictionary.replace(word, dictionary.get(word) + 1);
+                } else {
+                    dictionary.put(word, 1);
+                }
+            }
+        }
+    }
+
+    List<Note> getAllNotes() {
+        return allNotes;
+    }
+
 }

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -118,6 +120,19 @@ public class NoteServiceTest {
         assertEquals(-1, topWords.indexOf("integration"));
         assertEquals(-1, topWords.indexOf("any"));
         assertEquals(-1, topWords.indexOf("more"));
+
+    }
+
+    @Test
+    public void filterShouldReturnNotesOnlyWithTheSpecifiedWord() {
+
+        noteService.syncAllNotes();
+
+        List<Note> notes = noteService.findAllBy("spring");
+
+        assertTrue(notes.contains(n1));
+        assertTrue(notes.contains(n2));
+        assertFalse(notes.contains(n3));
 
     }
 

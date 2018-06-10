@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class NoteController {
@@ -16,10 +19,11 @@ public class NoteController {
     private NoteService noteService;
 
     // displays all notes
-    @RequestMapping(value="/")
-    public String noteList(Model model) {
-        model.addAttribute("noteList", noteService.findAll());
-        model.addAttribute("repeatedWords", noteService.getRepeatedWords());
+    @RequestMapping(value={"/", "notes"})
+    public String noteList(Model model, @RequestParam(required = false, name = "filter") String filter) {
+        List<Note> notes = (null == filter) ? noteService.findAll() : noteService.findAllBy(filter);
+        model.addAttribute("noteList", notes);
+model.addAttribute("repeatedWords", noteService.getRepeatedWords());
         return "noteList";
     }
 
