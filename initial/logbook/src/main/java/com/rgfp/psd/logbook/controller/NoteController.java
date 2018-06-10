@@ -19,6 +19,7 @@ public class NoteController {
     @RequestMapping(value="/")
     public String noteList(Model model) {
         model.addAttribute("noteList", noteService.findAll());
+        model.addAttribute("repeatedWords", noteService.getRepeatedWords());
         return "noteList";
     }
 

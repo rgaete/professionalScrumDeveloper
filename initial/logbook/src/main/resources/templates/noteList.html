@@ -48,6 +48,11 @@
         </tr>
         </tbody>
     </table>
+
+    <div id="repeated-words">
+        - <span th:each="word: ${repeatedWords}"><span th:text="${word}" /> - </span>
+    </div>
+
 </div>
 
 </body>
